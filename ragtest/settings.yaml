@@ -4,7 +4,8 @@ skip_workflows: []
 llm:
   api_key: ${GRAPHRAG_API_KEY}
   type: openai_chat # or azure_openai_chat
-  model: gpt-4-turbo-preview
+  # model: gpt-4-turbo-preview
+  model: gpt-3.5-turbo
   model_supports_json: true # recommended if this is available for your model.
   # max_tokens: 4000
   # request_timeout: 180.0
