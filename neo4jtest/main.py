@@ -55,8 +55,8 @@ def batched_import(statement, df, batch_size=1000):
         result = driver.execute_query("UNWIND $rows AS value " + statement, 
                                     rows=batch.to_dict('records'),
                                     database_=os.environ["NEO4J_DATABASE"])
-        print(result.summary.counters)                      # 현재 배치에서 적용된 변경 사항 출력
-    print(f'{total} rows in { time.time() - start_s} s.')   # 전체 소요 시간 출력    
+        # print(result.summary.counters)                      # 현재 배치에서 적용된 변경 사항 출력
+    # print(f'{total} rows in { time.time() - start_s} s.')   # 전체 소요 시간 출력    
     return total  # 처리된 전체 행 수 반환
 
 
@@ -74,7 +74,7 @@ def create_constraints():
 
     for statement in statements:
         if len((statement or "").strip()) > 0:
-            print(statement)
+            # print(statement)
             driver.execute_query(statement)
 
 
@@ -118,6 +118,54 @@ def load_nodes(entity_df) :
 
 
 
+def import_relationships(rel_df) :
+    rel_statement = """
+    MATCH (source:__Entity__ {name:replace(value.source,'"','')})
+    MATCH (target:__Entity__ {name:replace(value.target,'"','')})
+    // not necessary to merge on id as there is only one relationship per pair
+    MERGE (source)-[rel:RELATED {id: value.id}]->(target)
+    SET rel += value {.rank, .weight, .human_readable_id, .description, .text_unit_ids}
+    RETURN count(*) as createdRels
+    """
+
+    batched_import(rel_statement, rel_df)
+
+
+
+def import_communities(community_df) :
+    statement = """
+    MERGE (c:__Community__ {community:value.id})
+    SET c += value {.level, .title}
+    /*
+    UNWIND value.text_unit_ids as text_unit_id
+    MATCH (t:__Chunk__ {id:text_unit_id})
+    MERGE (c)-[:HAS_CHUNK]->(t)
+    WITH distinct c, value
+    */
+    WITH *
+    UNWIND value.relationship_ids as rel_id
+    MATCH (start:__Entity__)-[:RELATED {id:rel_id}]->(end:__Entity__)
+    MERGE (start)-[:IN_COMMUNITY]->(c)
+    MERGE (end)-[:IN_COMMUNITY]->(c)
+    RETURN count(distinct c) as createdCommunities
+    """
+
+    batched_import(statement, community_df)
+
+
+
+def import_community_reports(community_report_df) :
+    community_statement = """
+    MERGE (c:__Community__ {community:value.community})
+    SET c += value {.level, .title, .rank, .rank_explanation, .full_content, .summary}
+    WITH c, value
+    UNWIND range(0, size(value.findings)-1) AS finding_idx
+    WITH c, value, finding_idx, value.findings[finding_idx] as finding
+    MERGE (c)-[:HAS_FINDING]->(f:Finding {id:finding_idx})
+    SET f += finding
+    """
+    batched_import(community_statement, community_report_df)
+
 
 
 def main():
@@ -125,86 +173,39 @@ def main():
     initialize_neo4j()  # neo4j DB 연결
     create_constraints()  # Neo4j DB에 여러 제약 조건 생성
     
-    
+
     # import documents
-    doc_df = pd.read_parquet(f'{GRAPHRAG_FOLDER}/create_final_documents.parquet', columns=["id", "title"])
-    print(doc_df.head(2))
-    
+    doc_df = pd.read_parquet(f'{GRAPHRAG_FOLDER}/create_final_documents.parquet', columns=["id", "title"])    
     import_doc(doc_df)
 
 
     # loading text units
     text_df = pd.read_parquet(f'{GRAPHRAG_FOLDER}/create_final_text_units.parquet',
                             columns=["id","text","n_tokens","document_ids"])
-    print(text_df.head(2))
-    
     load_text_units(text_df)
 
 
     # loading nodes
     entity_df = pd.read_parquet(f'{GRAPHRAG_FOLDER}/create_final_entities.parquet',
                                 columns=["name","type","description","human_readable_id","id","description_embedding","text_unit_ids"])
-    print(entity_df.head(2))
-
     load_nodes(entity_df)
 
 
-    # rel_df = pd.read_parquet(f'{GRAPHRAG_FOLDER}/create_final_relationships.parquet',
-    #                         columns=["source","target","id","rank","weight","human_readable_id","description","text_unit_ids"])
-    # print(rel_df.head(2))
+    # import relationships
+    rel_df = pd.read_parquet(f'{GRAPHRAG_FOLDER}/create_final_relationships.parquet',
+                            columns=["source","target","id","rank","weight","human_readable_id","description","text_unit_ids"])
+    import_relationships(rel_df)
+    
 
-    # rel_statement = """
-    # MATCH (source:__Entity__ {name:replace(value.source,'"','')})
-    # MATCH (target:__Entity__ {name:replace(value.target,'"','')})
-    # // not necessary to merge on id as there is only one relationship per pair
-    # MERGE (source)-[rel:RELATED {id: value.id}]->(target)
-    # SET rel += value {.rank, .weight, .human_readable_id, .description, .text_unit_ids}
-    # RETURN count(*) as createdRels
-    # """
-
-    # batched_import(rel_statement, rel_df)
+    # import communities
+    community_df = pd.read_parquet(f'{GRAPHRAG_FOLDER}/create_final_communities.parquet', 
+                    columns=["id","level","title","text_unit_ids","relationship_ids"])
+    import_communities(community_df)
 
 
-    # community_df = pd.read_parquet(f'{GRAPHRAG_FOLDER}/create_final_communities.parquet', 
-    #                     columns=["id","level","title","text_unit_ids","relationship_ids"])
-
-    # community_df.head(2)
-
-    # statement = """
-    # MERGE (c:__Community__ {community:value.id})
-    # SET c += value {.level, .title}
-    # /*
-    # UNWIND value.text_unit_ids as text_unit_id
-    # MATCH (t:__Chunk__ {id:text_unit_id})
-    # MERGE (c)-[:HAS_CHUNK]->(t)
-    # WITH distinct c, value
-    # */
-    # WITH *
-    # UNWIND value.relationship_ids as rel_id
-    # MATCH (start:__Entity__)-[:RELATED {id:rel_id}]->(end:__Entity__)
-    # MERGE (start)-[:IN_COMMUNITY]->(c)
-    # MERGE (end)-[:IN_COMMUNITY]->(c)
-    # RETURN count(distinct c) as createdCommunities
-    # """
-
-    # batched_import(statement, community_df)
-
-    # community_report_df = pd.read_parquet(f'{GRAPHRAG_FOLDER}/create_final_community_reports.parquet',
-    #                             columns=["id","community","level","title","summary", "findings","rank","rank_explanation","full_content"])
-    # community_report_df.head(2)
-
-    # # import communities
-    # community_statement = """
-    # MERGE (c:__Community__ {community:value.community})
-    # SET c += value {.level, .title, .rank, .rank_explanation, .full_content, .summary}
-    # WITH c, value
-    # UNWIND range(0, size(value.findings)-1) AS finding_idx
-    # WITH c, value, finding_idx, value.findings[finding_idx] as finding
-    # MERGE (c)-[:HAS_FINDING]->(f:Finding {id:finding_idx})
-    # SET f += finding
-    # """
-    # batched_import(community_statement, community_report_df)
-
+    community_report_df = pd.read_parquet(f'{GRAPHRAG_FOLDER}/create_final_community_reports.parquet',
+                            columns=["id","community","level","title","summary", "findings","rank","rank_explanation","full_content"])
+    import_community_reports(community_report_df)
 
 
 
