@@ -5,7 +5,10 @@ import pandas as pd
 import time
 import os
 
-GRAPHRAG_FOLDER="./ragtest/output/20240826-113550/artifacts"
+
+# GRAPHRAG_FOLDER="./ragtest/output/20240826-113550/artifacts"
+GRAPHRAG_FOLDER="./ragtest/output/20240902-210356/artifacts"
+
 
 # 전역 변수 선언
 driver = None
