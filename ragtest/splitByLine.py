@@ -4,7 +4,7 @@ def split_file_by_lines(filename, num_parts):
 
     # 저장할 디렉토리 경로 설정
     input_dir = f'ragtest/input/{filename}'
-    output_dir = 'ragtest/input/test'
+    output_dir = 'ragtest/input/test/line'
 
     # 원본 파일을 읽기 모드로 열기 (UTF-8 인코딩 지정)
     with open(input_dir, 'r', encoding='utf-8') as file:
