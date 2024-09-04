@@ -28,7 +28,7 @@ def split_file_by_words(filename, num_parts):
         end = start + words_per_file + (1 if i < remainder else 0)
 
         # 새로운 파일에 분할된 내용을 저장
-        part_filename = f'{output_dir}/book_part_{i+1}.txt'
+        part_filename = f'{output_dir}/book_part_{10+i+1}.txt'
 
         with open(part_filename, 'w', encoding='utf-8') as part_file:
             part_file.write(' '.join(words[start:end]))
@@ -52,7 +52,7 @@ def split_file_by_words(filename, num_parts):
 
 def main() :
     # 사용 예시
-    split_file_by_words('book.txt', 10)
+    split_file_by_words('book2.txt', 10)
     
 
 if __name__ == "__main__":
