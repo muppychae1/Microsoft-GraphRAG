@@ -7,7 +7,7 @@ import os
 
 
 # GRAPHRAG_FOLDER="./ragtest/output/20240826-113550/artifacts"
-GRAPHRAG_FOLDER="./ragtest/output/20240902-210356/artifacts"
+GRAPHRAG_FOLDER="./ragtest/output/book_session_4/artifacts"
 
 
 # 전역 변수 선언
@@ -32,6 +32,13 @@ def initialize_neo4j():
     password = os.environ["NEO4J_PASSWORD"]
     driver = GraphDatabase.driver(uri, auth=(username, password))
 
+
+# 모든 노드를 삭제하는 함수 추가
+def delete_all_nodes():
+    with driver.session() as session:
+        session.run("MATCH (n) DETACH DELETE n")
+        print("All nodes and relationships deleted.")
+        
 
 # Neo4j 쿼리 결과를 Pandas DataFrame으로 변환하는 방법
 def db_query(cypher: str, params: Dict[str, Any] = {}) -> pd.DataFrame:
@@ -170,11 +177,11 @@ def import_community_reports(community_report_df) :
     batched_import(community_statement, community_report_df)
 
 
-
 def main():
-    load_env_variables()  # 환경 변수
-    initialize_neo4j()  # neo4j DB 연결
-    create_constraints()  # Neo4j DB에 여러 제약 조건 생성
+    load_env_variables()    # 환경 변수
+    initialize_neo4j()      # neo4j DB 연결
+    delete_all_nodes()      # 모든 노드 삭제
+    create_constraints()    # Neo4j DB에 여러 제약 조건 생성
     
 
     # import documents
