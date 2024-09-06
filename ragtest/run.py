@@ -56,7 +56,7 @@ def timeCheck():
 
 
 def main():
-    update_base_dir_in_settings()
+    # update_base_dir_in_settings()
     timeCheck()
 
 

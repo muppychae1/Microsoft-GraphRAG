@@ -23,7 +23,7 @@ def split_text_file(input_file, output_prefix, words_per_file):
         file_content = ' '.join(words[start:end])
         
         # Write the content to a new file
-        output_file = f"{output_dir}/{output_prefix}_{10+i+1}.txt"
+        output_file = f"{output_dir}/{output_prefix}_{i+1}.txt"
         with open(output_file, 'w', encoding='utf-8') as file:
             file.write(file_content)
         
@@ -32,6 +32,6 @@ def split_text_file(input_file, output_prefix, words_per_file):
 if __name__ == "__main__":
     input_file = 'book2.txt'         # Replace with your input file path
     output_prefix = 'book_part'    # Replace with your desired output file prefix
-    words_per_file = 3245            # Replace with the desired number of words per file
+    words_per_file = 3500            # Replace with the desired number of words per file
 
     split_text_file(input_file, output_prefix, words_per_file)
