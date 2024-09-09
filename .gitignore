@@ -3,3 +3,4 @@ ragtest/.env
 ragtest/cache
 noe4jtest/.env
 neo4jtest/.env
+csvtest/.env
