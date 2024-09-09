@@ -6,9 +6,7 @@ import time
 import os
 
 # Graph를 만들고 싶은 artifacts를 담고있는 디렉토리로 변경해줘야 함
-
-# GRAPHRAG_FOLDER="./ragtest/output/20240826-113550/artifacts"
-GRAPHRAG_FOLDER="./ragtest/output/book_session_14/artifacts"
+GRAPHRAG_FOLDER="./ragtest/output/book_session_1/artifacts"
 
 
 # 전역 변수 선언
