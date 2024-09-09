@@ -3,6 +3,7 @@ import time
 import os
 import yaml
 
+
 # settings.yaml에서 input의 file_pattern 변경해줘야 함
 
 def get_next_session_dir(base_path="ragtest/output"):

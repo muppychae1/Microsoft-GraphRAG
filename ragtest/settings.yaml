@@ -38,7 +38,7 @@ global_search: null
 input:
   base_dir: input/test/words
   file_encoding: utf-8
-  file_pattern: ^.*book(1_part_[(1-4)]|2_part_[(1-4)])\.txt$
+  file_pattern: ^.*book(1_part_[(1-5)]|2_part_[(1-5)])\.txt$
   file_type: text
   type: file
 llm:
