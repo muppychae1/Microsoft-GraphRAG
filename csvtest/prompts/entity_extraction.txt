@@ -1,0 +1,103 @@
+
+-Goal-
+Given a csv document that is potentially relevant to this activity and a list of entity types, identify all entities of those types from the text and all relationships among the identified entities.
+Don't make virtual informations.
+
+-Steps-
+1. Identify all entities. For each identified entity, extract the following information:
+- entity_name: Name of the entity, capitalized
+- entity_type: One of the following types: [{entity_types}]
+- entity_description: Comprehensive description of the entity's attributes and activities
+Format each entity as ("entity"{tuple_delimiter}<entity_name>{tuple_delimiter}<entity_type>{tuple_delimiter}<entity_description>)
+ 
+2. From the entities identified in step 1, identify all pairs of (source_entity, target_entity) that are *clearly related* to each other.
+For each pair of related entities, extract the following information:
+- source_entity: name of the source entity, as identified in step 1
+- target_entity: name of the target entity, as identified in step 1
+- relationship_description: explanation as to why you think the source entity and the target entity are related to each other
+- relationship_strength: a numeric score indicating strength of the relationship between the source entity and target entity
+ Format each relationship as ("relationship"{tuple_delimiter}<source_entity>{tuple_delimiter}<target_entity>{tuple_delimiter}<relationship_description>{tuple_delimiter}<relationship_strength>)
+ 
+3. Return output in English as a single list of all the entities and relationships identified in steps 1 and 2. Use **{record_delimiter}** as the list delimiter.
+ 
+4. When finished, output {completion_delimiter}
+ 
+######################
+-Examples-
+######################
+Example 1:
+Entity_types: EMPLOYEE, MANAGER, DESIGNATION, BIRTHDAY, LOCATION
+CSV:
+Employee Dataset,"Name: Ishita Mann, Designation: Automation Engineer, Manager: Rasha Baral, Location: Pune, Date of Birth: 30-05-1995",2022-12-17
+######################
+Output:
+("entity"{tuple_delimiter}ISHITA MANN{tuple_delimiter}EMPLOYEE{tuple_delimiter}Ishita Mann is an employee.)
+{record_delimiter}
+("entity"{tuple_delimiter}RASHA BARAL{tuple_delimiter}MANAGER{tuple_delimiter}Rasha Baral is a manager.)
+{record_delimiter}
+("entity"{tuple_delimiter}AUTOMATION ENGINEER{tuple_delimiter}DESIGNATION{tuple_delimiter}One of the designations is an Automation Engineer.)
+{record_delimiter}
+("entity"{tuple_delimiter}30-05-1995{tuple_delimiter}BIRTHDAY{tuple_delimiter}The birthday is on May 30, 1995.)
+{record_delimiter}
+("entity"{tuple_delimiter}PUNE{tuple_delimiter}LOCATION{tuple_delimiter}Workplace is Pune.)
+{record_delimiter}
+("relationship"{tuple_delimiter}ISHITA MANN{tuple_delimiter}RASHA BARAL{tuple_delimiter}Ishita Mann's manager is Rasha Baral.{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}ISHITA MANN{tuple_delimiter}AUTOMATION ENGINEER{tuple_delimiter}Ishita Mann's designation is Automation Engineer.{tuple_delimiter}9)
+{record_delimiter}
+("relationship"{tuple_delimiter}ISHITA MANN{tuple_delimiter}30-05-1995{tuple_delimiter}Ishita Mann was born on May 30, 1995.{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}ISHITA MANN{tuple_delimiter}PUNE{tuple_delimiter}Ishita Mann is working in Pune.{tuple_delimiter}5)
+{completion_delimiter}
+
+######################
+Example 2:
+Entity_types: EMPLOYEE, MANAGER, BIRTHDAY
+CSV:
+Employee Dataset,"Name: Neelofar Garg, Designation: AI Engineer, Manager: Nayantara Iyer, Location: Bangalore, Date of Birth: 17-04-1998",2023-07-11
+######################
+Output:
+("entity"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}EMPLOYEE{tuple_delimiter}Neelofar Garg is an employee.)
+{record_delimiter}
+("entity"{tuple_delimiter}NAYANTARA IYER{tuple_delimiter}MANAGER{tuple_delimiter}Nayantara Iyer is a manager.)
+{record_delimiter}
+("entity"{tuple_delimiter}17-04-1998{tuple_delimiter}BIRTHDAY{tuple_delimiter}The birthday is on April 17, 1998.)
+{record_delimiter}
+("relationship"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}NAYANTARA IYER{tuple_delimiter}Neelofar Garg's manager is Nayantara Iyer.{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}17-04-1998{tuple_delimiter}Neelofar Garg was born on April 30, 1998.{tuple_delimiter}5)
+{completion_delimiter}
+
+######################
+Example 3:
+Entity_types: EMPLOYEE, MANAGER, DESIGNATION, BIRTHDAY, LOCATION
+CSV:
+Employee Dataset,"Name: Advik Butala, Designation: AI Engineer, Manager: Onkar Wali, Location: London, Date of Birth: 22-05-1985",2024-05-15
+######################
+Output:
+("entity"{tuple_delimiter}ADVIK BUTALA{tuple_delimiter}EMPLOYEE{tuple_delimiter}Advik Butala is an employee.)
+{record_delimiter}
+("entity"{tuple_delimiter}ONKAR WALI{tuple_delimiter}MANAGER{tuple_delimiter}Onkar Wali is a manager.)
+{record_delimiter}
+("entity"{tuple_delimiter}AI ENGINEER{tuple_delimiter}DESIGNATION{tuple_delimiter}One of the designations is an AI Engineer.)
+{record_delimiter}
+("entity"{tuple_delimiter}22-05-1985{tuple_delimiter}BIRTHDAY{tuple_delimiter}The birthday is on May 22, 1985.)
+{record_delimiter}
+("entity"{tuple_delimiter}LONDON{tuple_delimiter}LOCATION{tuple_delimiter}Workplace is London.)
+{record_delimiter}
+("relationship"{tuple_delimiter}ADVIK BUTALA{tuple_delimiter}ONKAR WALI{tuple_delimiter}Advik Butala's manager is Onkar Wali.{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}ADVIK BUTALA{tuple_delimiter}AI ENGINEER{tuple_delimiter}Advik Butala's designation is AI Engineer.{tuple_delimiter}9)
+{record_delimiter}
+("relationship"{tuple_delimiter}ADVIK BUTALA{tuple_delimiter}22-05-1985{tuple_delimiter}Advik Butala was born on May 22, 1985.{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}ADVIK BUTALA{tuple_delimiter}LONDON{tuple_delimiter}Advik Butala is working in London.{tuple_delimiter}5)
+{completion_delimiter}
+
+######################
+-Real Data-
+######################
+Entity_types: {entity_types}
+CSV: {input_text}
+######################
+Output:
