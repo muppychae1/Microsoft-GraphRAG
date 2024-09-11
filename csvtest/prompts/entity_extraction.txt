@@ -1,6 +1,6 @@
 
 -Goal-
-Given a csv document that is potentially relevant to this activity and a list of entity types, identify all entities of those types from the text and all relationships among the identified entities.
+Given a text document that is potentially relevant to this activity and a list of entity types, identify all entities of those types from the text and all relationships among the identified entities.
 Don't make virtual informations.
 
 -Steps-
@@ -27,21 +27,21 @@ For each pair of related entities, extract the following information:
 ######################
 Example 1:
 Entity_types: EMPLOYEE, MANAGER, DESIGNATION, BIRTHDAY, LOCATION
-CSV:
-Employee Dataset,"Name: Ishita Mann, Designation: Automation Engineer, Manager: Rasha Baral, Location: Pune, Date of Birth: 30-05-1995",2022-12-17
+Text:
+Name: Ishita Mann, Designation: Automation Engineer, Manager: Rasha Baral, Location: Pune, Date of Birth: 30-05-1995
 ######################
 Output:
-("entity"{tuple_delimiter}ISHITA MANN{tuple_delimiter}EMPLOYEE{tuple_delimiter}Ishita Mann is an employee.)
+("entity"{tuple_delimiter}ISHITA MANN{tuple_delimiter}EMPLOYEE{tuple_delimiter}Ishita Mann is an employee and they have a manager.)
 {record_delimiter}
-("entity"{tuple_delimiter}RASHA BARAL{tuple_delimiter}MANAGER{tuple_delimiter}Rasha Baral is a manager.)
+("entity"{tuple_delimiter}RASHA BARAL{tuple_delimiter}MANAGER{tuple_delimiter}Rasha Baral is a manager and manage employees.)
 {record_delimiter}
-("entity"{tuple_delimiter}AUTOMATION ENGINEER{tuple_delimiter}DESIGNATION{tuple_delimiter}One of the designations is an Automation Engineer.)
+("entity"{tuple_delimiter}AUTOMATION ENGINEER{tuple_delimiter}DESIGNATION{tuple_delimiter}One of the employee's designations is Automation engineer.)
 {record_delimiter}
-("entity"{tuple_delimiter}30-05-1995{tuple_delimiter}BIRTHDAY{tuple_delimiter}The birthday is on May 30, 1995.)
+("entity"{tuple_delimiter}30-05-1995{tuple_delimiter}BIRTHDAY{tuple_delimiter}Employee's birthday is on May 30, 1995.)
 {record_delimiter}
-("entity"{tuple_delimiter}PUNE{tuple_delimiter}LOCATION{tuple_delimiter}Workplace is Pune.)
+("entity"{tuple_delimiter}PUNE{tuple_delimiter}LOCATION{tuple_delimiter}Employee's workplace is Pune.)
 {record_delimiter}
-("relationship"{tuple_delimiter}ISHITA MANN{tuple_delimiter}RASHA BARAL{tuple_delimiter}Ishita Mann's manager is Rasha Baral.{tuple_delimiter}7)
+("relationship"{tuple_delimiter}ISHITA MANN{tuple_delimiter}RASHA BARAL{tuple_delimiter}Ishita Mann's manager is Rasha Baral. One of the people managed by Rasha Baral is Ishita Mann.{tuple_delimiter}7)
 {record_delimiter}
 ("relationship"{tuple_delimiter}ISHITA MANN{tuple_delimiter}AUTOMATION ENGINEER{tuple_delimiter}Ishita Mann's designation is Automation Engineer.{tuple_delimiter}9)
 {record_delimiter}
@@ -52,40 +52,48 @@ Output:
 
 ######################
 Example 2:
-Entity_types: EMPLOYEE, MANAGER, BIRTHDAY
-CSV:
-Employee Dataset,"Name: Neelofar Garg, Designation: AI Engineer, Manager: Nayantara Iyer, Location: Bangalore, Date of Birth: 17-04-1998",2023-07-11
+Entity_types: EMPLOYEE, MANAGER, DESIGNATION, BIRTHDAY, LOCATION
+Text:
+Name: Neelofar Garg, Designation: AI Engineer, Manager: Nayantara Iyer, Location: Bangalore, Date of Birth: 17-04-1998
 ######################
 Output:
-("entity"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}EMPLOYEE{tuple_delimiter}Neelofar Garg is an employee.)
+("entity"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}EMPLOYEE{tuple_delimiter}Neelofar Garg is an employee and they have a manager.)
 {record_delimiter}
-("entity"{tuple_delimiter}NAYANTARA IYER{tuple_delimiter}MANAGER{tuple_delimiter}Nayantara Iyer is a manager.)
+("entity"{tuple_delimiter}NAYANTARA IYER{tuple_delimiter}MANAGER{tuple_delimiter}Nayantara Iyer is a manager and manage employees.)
 {record_delimiter}
-("entity"{tuple_delimiter}17-04-1998{tuple_delimiter}BIRTHDAY{tuple_delimiter}The birthday is on April 17, 1998.)
+("entity"{tuple_delimiter}AI ENGINEER{tuple_delimiter}DESIGNATION{tuple_delimiter}One of the employee's designations is an AI Engineer.)
 {record_delimiter}
-("relationship"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}NAYANTARA IYER{tuple_delimiter}Neelofar Garg's manager is Nayantara Iyer.{tuple_delimiter}7)
+("entity"{tuple_delimiter}17-04-1998{tuple_delimiter}BIRTHDAY{tuple_delimiter}Employee's birthday is on April 17, 1998.)
 {record_delimiter}
-("relationship"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}17-04-1998{tuple_delimiter}Neelofar Garg was born on April 30, 1998.{tuple_delimiter}5)
+("entity"{tuple_delimiter}BANGALORE{tuple_delimiter}LOCATION{tuple_delimiter}Employee's workplace is Bangalore.)
+{record_delimiter}
+("relationship"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}NAYANTARA IYER{tuple_delimiter}Neelofar Garg's manager is Nayantara Iyer. One of the people managed by Nayantara Iyer is Neelofar Garg.{tuple_delimiter}7)
+{record_delimiter}
+("relationship"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}AI ENGINEER{tuple_delimiter}Neelofar Garg's designation is AI Engineer.{tuple_delimiter}9)
+{record_delimiter}
+("relationship"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}17-04-1998{tuple_delimiter}Neelofar Garg was born on April 17, 1998.{tuple_delimiter}5)
+{record_delimiter}
+("relationship"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}PUNE{tuple_delimiter}Neelofar Garg is working in Bangalore.{tuple_delimiter}5)
 {completion_delimiter}
 
 ######################
 Example 3:
 Entity_types: EMPLOYEE, MANAGER, DESIGNATION, BIRTHDAY, LOCATION
-CSV:
-Employee Dataset,"Name: Advik Butala, Designation: AI Engineer, Manager: Onkar Wali, Location: London, Date of Birth: 22-05-1985",2024-05-15
+Text:
+Name: Advik Butala, Designation: AI Engineer, Manager: Onkar Wali, Location: London, Date of Birth: 22-05-1985
 ######################
 Output:
-("entity"{tuple_delimiter}ADVIK BUTALA{tuple_delimiter}EMPLOYEE{tuple_delimiter}Advik Butala is an employee.)
+("entity"{tuple_delimiter}ADVIK BUTALA{tuple_delimiter}EMPLOYEE{tuple_delimiter}Advik Butala is an employee and they have a manager.)
 {record_delimiter}
-("entity"{tuple_delimiter}ONKAR WALI{tuple_delimiter}MANAGER{tuple_delimiter}Onkar Wali is a manager.)
+("entity"{tuple_delimiter}ONKAR WALI{tuple_delimiter}MANAGER{tuple_delimiter}Onkar Wali is a manager and manage employees.)
 {record_delimiter}
-("entity"{tuple_delimiter}AI ENGINEER{tuple_delimiter}DESIGNATION{tuple_delimiter}One of the designations is an AI Engineer.)
+("entity"{tuple_delimiter}AI ENGINEER{tuple_delimiter}DESIGNATION{tuple_delimiter}One of the employee's designations is an AI Engineer.)
 {record_delimiter}
-("entity"{tuple_delimiter}22-05-1985{tuple_delimiter}BIRTHDAY{tuple_delimiter}The birthday is on May 22, 1985.)
+("entity"{tuple_delimiter}22-05-1985{tuple_delimiter}BIRTHDAY{tuple_delimiter}Employee's birthday is on May 22, 1985.)
 {record_delimiter}
-("entity"{tuple_delimiter}LONDON{tuple_delimiter}LOCATION{tuple_delimiter}Workplace is London.)
+("entity"{tuple_delimiter}LONDON{tuple_delimiter}LOCATION{tuple_delimiter}Employee's workplace is London.)
 {record_delimiter}
-("relationship"{tuple_delimiter}ADVIK BUTALA{tuple_delimiter}ONKAR WALI{tuple_delimiter}Advik Butala's manager is Onkar Wali.{tuple_delimiter}7)
+("relationship"{tuple_delimiter}ADVIK BUTALA{tuple_delimiter}ONKAR WALI{tuple_delimiter}Advik Butala's manager is Onkar Wali. One of the people managed by Onkar Wali is Advik Butala.{tuple_delimiter}7)
 {record_delimiter}
 ("relationship"{tuple_delimiter}ADVIK BUTALA{tuple_delimiter}AI ENGINEER{tuple_delimiter}Advik Butala's designation is AI Engineer.{tuple_delimiter}9)
 {record_delimiter}
@@ -98,6 +106,6 @@ Output:
 -Real Data-
 ######################
 Entity_types: {entity_types}
-CSV: {input_text}
+Text: {input_text}
 ######################
 Output:
