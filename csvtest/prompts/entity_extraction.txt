@@ -31,23 +31,23 @@ Text:
 Name: Ishita Mann, Designation: Automation Engineer, Manager: Rasha Baral, Location: Pune, Date of Birth: 30-05-1995
 ######################
 Output:
-("entity"{tuple_delimiter}ISHITA MANN{tuple_delimiter}EMPLOYEE{tuple_delimiter}Ishita Mann is an employee and they have a manager.)
+("entity"{tuple_delimiter}ISHITA MANN{tuple_delimiter}EMPLOYEE{tuple_delimiter}Ishita Mann is an employee working as an Automation Engineer in Pune, born on May 30, 1995.)
 {record_delimiter}
-("entity"{tuple_delimiter}RASHA BARAL{tuple_delimiter}MANAGER{tuple_delimiter}Rasha Baral is a manager and manage employees.)
+("entity"{tuple_delimiter}RASHA BARAL{tuple_delimiter}MANAGER{tuple_delimiter}Rasha Baral is a manager who oversees multiple employees.)
 {record_delimiter}
-("entity"{tuple_delimiter}AUTOMATION ENGINEER{tuple_delimiter}DESIGNATION{tuple_delimiter}One of the employee's designations is Automation engineer.)
+("entity"{tuple_delimiter}AUTOMATION ENGINEER{tuple_delimiter}DESIGNATION{tuple_delimiter}Automation Engineer is a job designation held by Ishita Mann.)
 {record_delimiter}
-("entity"{tuple_delimiter}30-05-1995{tuple_delimiter}BIRTHDAY{tuple_delimiter}Employee's birthday is on May 30, 1995.)
+("entity"{tuple_delimiter}PUNE{tuple_delimiter}LOCATION{tuple_delimiter}Pune is a work location for some employees managed by Rasha Baral.)
 {record_delimiter}
-("entity"{tuple_delimiter}PUNE{tuple_delimiter}LOCATION{tuple_delimiter}Employee's workplace is Pune.)
+("entity"{tuple_delimiter}30-05-1995{tuple_delimiter}BIRTHDAY{tuple_delimiter}May 30, 1995 is Ishita Mann's date of birth.)
 {record_delimiter}
-("relationship"{tuple_delimiter}ISHITA MANN{tuple_delimiter}RASHA BARAL{tuple_delimiter}Ishita Mann's manager is Rasha Baral. One of the people managed by Rasha Baral is Ishita Mann.{tuple_delimiter}7)
+("relationship"{tuple_delimiter}ISHITA MANN{tuple_delimiter}RASHA BARAL{tuple_delimiter}Ishita Mann reports to Rasha Baral as her manager.{tuple_delimiter}8)
 {record_delimiter}
-("relationship"{tuple_delimiter}ISHITA MANN{tuple_delimiter}AUTOMATION ENGINEER{tuple_delimiter}Ishita Mann's designation is Automation Engineer.{tuple_delimiter}9)
+("relationship"{tuple_delimiter}ISHITA MANN{tuple_delimiter}AUTOMATION ENGINEER{tuple_delimiter}Ishita Mann's job designation is Automation Engineer.{tuple_delimiter}9)
 {record_delimiter}
-("relationship"{tuple_delimiter}ISHITA MANN{tuple_delimiter}30-05-1995{tuple_delimiter}Ishita Mann was born on May 30, 1995.{tuple_delimiter}5)
+("relationship"{tuple_delimiter}ISHITA MANN{tuple_delimiter}30-05-1995{tuple_delimiter}Ishita Mann was born on May 30, 1995.{tuple_delimiter}8)
 {record_delimiter}
-("relationship"{tuple_delimiter}ISHITA MANN{tuple_delimiter}PUNE{tuple_delimiter}Ishita Mann is working in Pune.{tuple_delimiter}5)
+("relationship"{tuple_delimiter}ISHITA MANN{tuple_delimiter}PUNE{tuple_delimiter}Ishita Mann works in Pune.{tuple_delimiter}7)
 {completion_delimiter}
 
 ######################
@@ -57,23 +57,23 @@ Text:
 Name: Neelofar Garg, Designation: AI Engineer, Manager: Nayantara Iyer, Location: Bangalore, Date of Birth: 17-04-1998
 ######################
 Output:
-("entity"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}EMPLOYEE{tuple_delimiter}Neelofar Garg is an employee and they have a manager.)
+("entity"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}EMPLOYEE{tuple_delimiter}Neelofar Garg is an employee working as an AI Engineer in Bangalore, born on April 17, 1998.)
 {record_delimiter}
-("entity"{tuple_delimiter}NAYANTARA IYER{tuple_delimiter}MANAGER{tuple_delimiter}Nayantara Iyer is a manager and manage employees.)
+("entity"{tuple_delimiter}NAYANTARA IYER{tuple_delimiter}MANAGER{tuple_delimiter}Nayantara Iyer is a manager who oversees multiple employees.)
 {record_delimiter}
-("entity"{tuple_delimiter}AI ENGINEER{tuple_delimiter}DESIGNATION{tuple_delimiter}One of the employee's designations is an AI Engineer.)
+("entity"{tuple_delimiter}AI ENGINEER{tuple_delimiter}DESIGNATION{tuple_delimiter}AI Engineer is a job designation held by Neelofar Garg.)
 {record_delimiter}
-("entity"{tuple_delimiter}17-04-1998{tuple_delimiter}BIRTHDAY{tuple_delimiter}Employee's birthday is on April 17, 1998.)
+("entity"{tuple_delimiter}BANGALORE{tuple_delimiter}LOCATION{tuple_delimiter}Bangalore is a work location for some employees managed by Nayantara Iyer.)
 {record_delimiter}
-("entity"{tuple_delimiter}BANGALORE{tuple_delimiter}LOCATION{tuple_delimiter}Employee's workplace is Bangalore.)
+("entity"{tuple_delimiter}17-04-1998{tuple_delimiter}BIRTHDAY{tuple_delimiter}April 17, 1998 is Neelofar Garg's date of birth.)
 {record_delimiter}
-("relationship"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}NAYANTARA IYER{tuple_delimiter}Neelofar Garg's manager is Nayantara Iyer. One of the people managed by Nayantara Iyer is Neelofar Garg.{tuple_delimiter}7)
+("relationship"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}NAYANTARA IYER{tuple_delimiter}Neelofar Garg reports to Nayantara Iyer as her manager.{tuple_delimiter}8)
 {record_delimiter}
-("relationship"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}AI ENGINEER{tuple_delimiter}Neelofar Garg's designation is AI Engineer.{tuple_delimiter}9)
+("relationship"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}AI ENGINEER{tuple_delimiter}Neelofar Garg's job designation is AI Engineer.{tuple_delimiter}9)
 {record_delimiter}
-("relationship"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}17-04-1998{tuple_delimiter}Neelofar Garg was born on April 17, 1998.{tuple_delimiter}5)
+("relationship"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}17-04-1998{tuple_delimiter}Neelofar Garg was born on April 17, 1998.{tuple_delimiter}8)
 {record_delimiter}
-("relationship"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}PUNE{tuple_delimiter}Neelofar Garg is working in Bangalore.{tuple_delimiter}5)
+("relationship"{tuple_delimiter}NEELOFAR GARG{tuple_delimiter}BANGALORE{tuple_delimiter}Neelofar Garg works in Bangalore.{tuple_delimiter}7)
 {completion_delimiter}
 
 ######################
@@ -83,23 +83,23 @@ Text:
 Name: Advik Butala, Designation: AI Engineer, Manager: Onkar Wali, Location: London, Date of Birth: 22-05-1985
 ######################
 Output:
-("entity"{tuple_delimiter}ADVIK BUTALA{tuple_delimiter}EMPLOYEE{tuple_delimiter}Advik Butala is an employee and they have a manager.)
+("entity"{tuple_delimiter}ADVIK BUTALA{tuple_delimiter}EMPLOYEE{tuple_delimiter}Advik Butala is an employee working as an AI Engineer in London, born on May 22, 1985.)
 {record_delimiter}
-("entity"{tuple_delimiter}ONKAR WALI{tuple_delimiter}MANAGER{tuple_delimiter}Onkar Wali is a manager and manage employees.)
+("entity"{tuple_delimiter}ONKAR WALI{tuple_delimiter}MANAGER{tuple_delimiter}Onkar Wali is a manager who oversees multiple employees.)
 {record_delimiter}
-("entity"{tuple_delimiter}AI ENGINEER{tuple_delimiter}DESIGNATION{tuple_delimiter}One of the employee's designations is an AI Engineer.)
+("entity"{tuple_delimiter}AI ENGINEER{tuple_delimiter}DESIGNATION{tuple_delimiter}AI Engineer is a job designation held by Advik Butala.)
 {record_delimiter}
-("entity"{tuple_delimiter}22-05-1985{tuple_delimiter}BIRTHDAY{tuple_delimiter}Employee's birthday is on May 22, 1985.)
+("entity"{tuple_delimiter}LONDON{tuple_delimiter}LOCATION{tuple_delimiter}London is a work location for some employees managed by ONKAR WALI.)
 {record_delimiter}
-("entity"{tuple_delimiter}LONDON{tuple_delimiter}LOCATION{tuple_delimiter}Employee's workplace is London.)
+("entity"{tuple_delimiter}22-05-1985{tuple_delimiter}BIRTHDAY{tuple_delimiter}May 22, 1985 is Advik Butala's date of birth.)
 {record_delimiter}
-("relationship"{tuple_delimiter}ADVIK BUTALA{tuple_delimiter}ONKAR WALI{tuple_delimiter}Advik Butala's manager is Onkar Wali. One of the people managed by Onkar Wali is Advik Butala.{tuple_delimiter}7)
+("relationship"{tuple_delimiter}ADVIK BUTALA{tuple_delimiter}ONKAR WALI{tuple_delimiter}Advik Butala reports to Onkar Wali as her manager.{tuple_delimiter}8)
 {record_delimiter}
-("relationship"{tuple_delimiter}ADVIK BUTALA{tuple_delimiter}AI ENGINEER{tuple_delimiter}Advik Butala's designation is AI Engineer.{tuple_delimiter}9)
+("relationship"{tuple_delimiter}ADVIK BUTALA{tuple_delimiter}AI ENGINEER{tuple_delimiter}Advik Butala's job designation is AI Engineer.{tuple_delimiter}9)
 {record_delimiter}
-("relationship"{tuple_delimiter}ADVIK BUTALA{tuple_delimiter}22-05-1985{tuple_delimiter}Advik Butala was born on May 22, 1985.{tuple_delimiter}5)
+("relationship"{tuple_delimiter}ADVIK BUTALA{tuple_delimiter}22-05-1985{tuple_delimiter}Advik Butala was born on May 22, 1985.{tuple_delimiter}8)
 {record_delimiter}
-("relationship"{tuple_delimiter}ADVIK BUTALA{tuple_delimiter}LONDON{tuple_delimiter}Advik Butala is working in London.{tuple_delimiter}5)
+("relationship"{tuple_delimiter}ADVIK BUTALA{tuple_delimiter}LONDON{tuple_delimiter}Advik Butala works in London.{tuple_delimiter}7)
 {completion_delimiter}
 
 ######################
