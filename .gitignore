@@ -7,4 +7,3 @@ csvtest/.env
 csvtest/cache
 lancedb
 neo4jTriple/.env
-pdftest/.env
