@@ -19,29 +19,27 @@ For each claim, extract the following information:
 
 Format each claim as (<subject_entity>{tuple_delimiter}<object_entity>{tuple_delimiter}<claim_type>{tuple_delimiter}<claim_status>{tuple_delimiter}<claim_start_date>{tuple_delimiter}<claim_end_date>{tuple_delimiter}<claim_description>{tuple_delimiter}<claim_source>)
 
-3. Return output in English as a single list of all the claims identified in steps 1 and 2. Use **{record_delimiter}** as the list delimiter.
+3. Return output in Korean as a single list of all the claims identified in steps 1 and 2. Use **{record_delimiter}** as the list delimiter.
 
 4. When finished, output {completion_delimiter}
 
 -Examples-
 Example 1:
-Entity specification: organization
-Claim description: red flags associated with an entity
-Text: According to an article on 2022/01/10, Company A was fined for bid rigging while participating in multiple public tenders published by Government Agency B. The company is owned by Person C who was suspected of engaging in corruption activities in 2015.
-Output:
+Entity specification: entity
+Claim description: 특정 클래스 또는 객체의 역할과 제한 사항
+Text: ServerSocket은 클라이언트로부터 연결 요청을 기다리는 목적으로만 사용되며, 서버가 클라이언트의 연결 요청을 수락하면 Socket 객체를 별도로 생성하고, 이 Socket 객체가 클라이언트와 데이터를 주고받는다. ServerSocket은 데이터의 송수신에 사용되지 않는다.
 
-(COMPANY A{tuple_delimiter}GOVERNMENT AGENCY B{tuple_delimiter}ANTI-COMPETITIVE PRACTICES{tuple_delimiter}TRUE{tuple_delimiter}2022-01-10T00:00:00{tuple_delimiter}2022-01-10T00:00:00{tuple_delimiter}Company A was found to engage in anti-competitive practices because it was fined for bid rigging in multiple public tenders published by Government Agency B according to an article published on 2022/01/10{tuple_delimiter}According to an article published on 2022/01/10, Company A was fined for bid rigging while participating in multiple public tenders published by Government Agency B.)
+Output:
+(SERVERSOCKET{tuple_delimiter}SOCKET{tuple_delimiter}ROLE AND LIMITATION{tuple_delimiter}TRUE{tuple_delimiter}NONE{tuple_delimiter}NONE{tuple_delimiter}ServerSocket은 클라이언트의 연결 요청을 기다리는 역할만 하며, 데이터를 주고받는 것은 별도로 생성된 Socket 객체가 수행한다{tuple_delimiter}ServerSocket은 클라이언트로부터 연결 요청을 기다리는 목적으로만 사용되며, 데이터 송수신은 Socket 객체가 담당한다.)
 {completion_delimiter}
 
 Example 2:
-Entity specification: Company A, Person C
-Claim description: red flags associated with an entity
-Text: According to an article on 2022/01/10, Company A was fined for bid rigging while participating in multiple public tenders published by Government Agency B. The company is owned by Person C who was suspected of engaging in corruption activities in 2015.
-Output:
+Entity specification: entity
+Claim description: 특정 프로토콜의 역할과 기능
+Text: TCP 프로토콜은 Transmission Control Protocol의 약자로 다른 두 시스템 간에 신뢰성 있는 데이터의 전송을 관장하는 통신 프로토콜로서 IP(Internet Protocol) 프로토콜 위에서 동작한다.
 
-(COMPANY A{tuple_delimiter}GOVERNMENT AGENCY B{tuple_delimiter}ANTI-COMPETITIVE PRACTICES{tuple_delimiter}TRUE{tuple_delimiter}2022-01-10T00:00:00{tuple_delimiter}2022-01-10T00:00:00{tuple_delimiter}Company A was found to engage in anti-competitive practices because it was fined for bid rigging in multiple public tenders published by Government Agency B according to an article published on 2022/01/10{tuple_delimiter}According to an article published on 2022/01/10, Company A was fined for bid rigging while participating in multiple public tenders published by Government Agency B.)
-{record_delimiter}
-(PERSON C{tuple_delimiter}NONE{tuple_delimiter}CORRUPTION{tuple_delimiter}SUSPECTED{tuple_delimiter}2015-01-01T00:00:00{tuple_delimiter}2015-12-30T00:00:00{tuple_delimiter}Person C was suspected of engaging in corruption activities in 2015{tuple_delimiter}The company is owned by Person C who was suspected of engaging in corruption activities in 2015)
+Output:
+(TCP{tuple_delimiter}IP{tuple_delimiter}ROLE AND FUNCTION{tuple_delimiter}TRUE{tuple_delimiter}NONE{tuple_delimiter}NONE{tuple_delimiter}TCP는 두 시스템 간 신뢰성 있는 데이터 전송을 관리하는 통신 프로토콜로, IP 프로토콜 위에서 동작하는 역할을 한다{tuple_delimiter}TCP 프로토콜은 다른 두 시스템 간에 신뢰성 있는 데이터 전송을 관장하는 통신 프로토콜로서 IP 프로토콜 위에서 동작한다.)
 {completion_delimiter}
 
 -Real Data-
