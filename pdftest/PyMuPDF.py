@@ -17,7 +17,7 @@ def extract_text_from_pdf(pdf_path, txt_path):
     print(f"텍스트가 {txt_path}에 저장되었습니다.")
 
 # PDF 파일 경로와 저장할 txt 파일 경로 설정
-pdf_file_path = "pdftest/input/금도끼와 은도끼.pdf"
+pdf_file_path = "pdftest/input/pdf/15장 네트워크-1-3.pdf"
 text_file_path = "pdftest/input/PyMuPDF.txt"
 
 # 함수 호출
