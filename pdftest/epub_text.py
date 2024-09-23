@@ -19,5 +19,5 @@ def extract_text_from_epub(epub_path, output_path):
 
 # 사용 예시
 epub_path = 'pdftest/input/epub/alice.epub'  # EPUB 파일 경로
-output_path = 'pdftest/input/epub_text.txt'  # 출력 파일 경로
+output_path = 'pdftest/input/text/alice/epub_text.txt'  # 출력 파일 경로
 extract_text_from_epub(epub_path, output_path)
