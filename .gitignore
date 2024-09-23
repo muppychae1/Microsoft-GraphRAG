@@ -9,3 +9,7 @@ lancedb
 neo4jTriple/.env
 pdftest/.env
 pdftest/cache
+
+pdftest/output
+csvtest/output
+ragtest/output
